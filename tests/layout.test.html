@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>running</title>
+<!-- Loads the site in phone-sized frames and checks nothing makes the page scroll sideways.
+     Run with tests/run.sh; the result is written to the title. -->
+<body>
+<script>
+  const WIDTHS = [320, 375, 414];
+  const results = [];
+  // state 'open' taps the header LED first, so its popup is showing
+  const check = (width, state) => new Promise((resolve) => {
+    const f = document.createElement('iframe');
+    f.style.cssText = `width:${width}px;height:800px;border:0`;
+    f.src = '../index.html';
+    f.onload = () => setTimeout(() => {
+      const d = f.contentDocument, html = d.documentElement;
+      if (state === 'open') d.querySelector('.onboard button').click();
+      const over = html.scrollWidth - html.clientWidth;
+      const culprits = [...d.querySelectorAll('body *')]
+        .filter((el) => el.getBoundingClientRect().right > html.clientWidth + 1 && el.getBoundingClientRect().width > 0)
+        .map((el) => el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.split(' ')[0] : ''))
+        .slice(0, 5);
+      // The header should be two rows on phones: name, LED and fader, then the nav
+      if (state === 'closed') {
+        const top = (sel) => Math.round(d.querySelector(sel).getBoundingClientRect().top + d.querySelector(sel).getBoundingClientRect().height / 2);
+        const rowGap = Math.abs(top('.fader') - top('.wordmark'));
+        results.push(rowGap > 8 ? `FAIL ${width}px header: the fader wrapped onto its own row (${rowGap}px below the name)` : `PASS ${width}px header`);
+      }
+      results.push(over > 0 ? `FAIL ${width}px ${state}: page is ${over}px wider than the screen (${culprits.join(', ')})` : `PASS ${width}px ${state}`);
+      resolve();
+    }, 1000);
+    document.body.append(f);
+  });
+  (async () => {
+    for (const w of WIDTHS) for (const state of ['closed', 'open']) await check(w, state);
+    document.title = results.join(' | ');
+  })();
+</script>

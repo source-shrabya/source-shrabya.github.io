@@ -503,6 +503,14 @@ main:focus { outline: none; }
   html { scroll-padding-top: 7rem; }
   .site-header { flex-wrap: wrap; gap: .35rem 1rem; padding-bottom: .4rem; }
   .site-header nav { order: 3; width: 100%; }
+  /* Name, LED and fader share the first row: a narrower name and a shorter fader without its icons */
+  .site-header { column-gap: .75rem; }
+  .wordmark { font-variation-settings: 'wdth' 100; }
+  .fader svg { display: none; }
+  .fader input { width: 4rem; }
+  /* The Blink popup hangs from the header and stays inside the screen; long lines scroll inside it */
+  .onboard { position: static; }
+  .onboard__sketch { left: var(--gutter); right: var(--gutter); overflow-x: auto; }
   .nav-list { gap: 1.5rem; }
   .nav-list a { display: inline-block; padding-block: .5rem; }
   .intro { grid-template-columns: 1fr; }

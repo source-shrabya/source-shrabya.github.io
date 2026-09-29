@@ -208,17 +208,14 @@ navLinks.forEach((a) => { const s = document.querySelector(a.hash); if (s) spy.o
 // Channels follow the resistor color code order: 1 brown, 2 red, 3 orange, 4 yellow, 5 green, 6 blue.
 // Dates are 'YYYY-MM'. `to: null` means still going.
 const CHANNELS = [
-  { name: 'Embedded', color: '--c-brown', pulses: [
-    { from: '2021-12', to: '2022-03', label: 'Sugam Engineering', title: 'Embedded Systems Developer Intern at Sugam Engineering', detail: 'C firmware for a microcontroller sensor project.', href: '#exp-sugam' },
-  ] },
   { name: 'Software', color: '--c-red', pulses: [
-    { from: '2023-05', to: '2024-08', label: 'TechMatrix', title: 'Junior Software Engineer Intern at TechMatrix', detail: 'Backend APIs in Python and Flask.', href: '#exp-techmatrix' },
+    { from: '2023-05', to: '2024-08', label: 'TechMatrix', title: 'Junior Software Engineer Intern at TechMatrix', detail: 'Python and Flask backend work on the IoT side of team projects.', href: '#exp-techmatrix' },
   ] },
   { name: 'Education', color: '--c-orange', pulses: [
     { from: '2024-08', to: '2028-05', label: 'B.S. Computer Engineering, USM', title: 'B.S. Computer Engineering at the University of Southern Mississippi', detail: 'Expected May 2028. GPA 3.91.', href: '#exp-usm' },
   ] },
   { name: 'Research', color: '--c-yellow', pulses: [
-    { from: '2026-01', to: null, label: 'WildfireWatch', title: 'WildfireWatch research', detail: 'Onboard AI for detecting wildfires from drones.', href: '#research' },
+    { from: '2026-01', to: null, label: 'Wildfire research', title: 'Wildfire smoke detection research', detail: 'AI that spots wildfire smoke on small edge hardware.', href: '#research' },
   ] },
   { name: 'Community', color: '--c-green', pulses: [
     { from: '2026-03', to: null, label: 'Open Source Community', title: 'Co-founder of the USM Open Source Community', detail: 'Grown past 200 student members.', href: '#personal' },
@@ -236,7 +233,7 @@ if (analyzer) {
 
   const today = new Date();
   const now = today.getFullYear() * 12 + today.getMonth();
-  const start = toIndex('2021-07');
+  const start = toIndex('2023-01');
   const end = Math.max(toIndex('2027-07'), now + 9);   // leave some room after "now"
   const pct = (i) => `${((Math.min(Math.max(i, start), end) - start) / (end - start)) * 100}%`;
 
@@ -344,13 +341,13 @@ if (analyzer) {
 const chip = document.querySelector('[data-chip]');
 if (chip) {
   const PINS = [
-    { sig: 'C', name: 'Embedded C', detail: 'Microcontroller firmware at Sugam Engineering, and onboard code for WildfireWatch.' },
-    { sig: 'PY', name: 'Python', detail: 'Sales data scripts at 4th Dimension, Flask APIs at TechMatrix, and model testing for WildfireWatch.' },
+    { sig: 'C', name: 'C', detail: 'Coursework at USM.' },
+    { sig: 'PY', name: 'Python', detail: 'Sales data scripts at 4th Dimension, Flask at TechMatrix, and model training for the wildfire research.' },
     { sig: 'SQL', name: 'SQL', detail: 'Kept the team CRM up to date at 4th Dimension.' },
-    { sig: 'API', name: 'Flask', detail: 'Backend APIs at TechMatrix.' },
-    { sig: 'CV', name: 'OpenCV', detail: 'Image processing for wildfire detection from drones.' },
-    { sig: 'TFL', name: 'TensorFlow Lite', detail: 'Running models on resource-constrained onboard hardware.' },
-    { sig: 'MCU', name: 'Microcontrollers', detail: 'Helped with C firmware for a microcontroller sensor project at Sugam Engineering.' },
+    { sig: 'API', name: 'Flask', detail: 'Backend work on IoT projects at TechMatrix.' },
+    { sig: 'CNN', name: 'YOLO', detail: 'Training the smoke classifier for the wildfire research.' },
+    { sig: 'VLM', name: 'Vision-language models', detail: 'Fine-tuning a small one to describe wildfire smoke.' },
+    { sig: 'MCU', name: 'Microcontrollers', detail: 'Coursework at USM.' },
     { sig: 'GND', name: 'Ground', detail: 'Grounded in Kathmandu, where I grew up.' },
     { sig: 'NC', name: 'Not connected', detail: 'Reserved for whatever I learn next.' },
     { sig: 'DSA', name: 'Data structures', detail: 'Coursework at USM.' },

@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <title>Shrabya Bhattarai</title>
-  <meta name="description" content="Shrabya Bhattarai is a computer engineering student at the University of Southern Mississippi working on embedded systems, data, and onboard AI for drones." />
+  <meta name="description" content="Shrabya Bhattarai. Computer engineering student at the University of Southern Mississippi. I love data, and I want to teach sand to see." />
   <meta property="og:title" content="Shrabya Bhattarai" />
-  <meta property="og:description" content="Computer engineering student working on embedded systems, data, and onboard AI for drones." />
+  <meta property="og:description" content="Computer engineering student at the University of Southern Mississippi. I love data, and I want to teach sand to see." />
   <meta property="og:url" content="https://shrabya.com.np/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://shrabya.com.np/assets/og-card.png" />
@@ -85,15 +85,14 @@ void loop() {
         <h1>Shrabya Bhattarai</h1>
         <p class="lede">
           Computer engineering student at the University of Southern Mississippi.
-          I write firmware for microcontrollers, build pipelines that make sense of
-          messy data, and research onboard AI for drones.
+          I love data, and I want to teach sand to see.
         </p>
         <div class="now" aria-label="What I'm up to right now">
           <p class="now__label"><span class="now__dot" aria-hidden="true"></span>Now</p>
           <dl>
-            <div><dt>Researching</dt><dd><a href="#research">Onboard AI for wildfire drones</a></dd></div>
-            <div><dt>Growing</dt><dd><a href="#personal">USM Open Source Community</a></dd></div>
-            <div><dt>Looking for</dt><dd>Embedded and systems internships, summer 2027</dd></div>
+            <div><dt>Researching</dt><dd><a href="#research">AI for Wildfire Drones</a></dd></div>
+            <div><dt>Learning</dt><dd>Computer Vision</dd></div>
+            <div><dt>Making</dt><dd>Beats in FL Studio</dd></div>
             <div data-github hidden><dt>Last on GitHub</dt><dd></dd></div>
             <!-- Add more lines like this one:
             <div><dt>Listening to</dt><dd>Song, Artist</dd></div> -->
@@ -136,7 +135,7 @@ void loop() {
     <!-- ============ Engineering ============ -->
     <section id="engineering" class="section">
       <h2><span class="refdes" aria-hidden="true">U1</span>Engineering</h2>
-      <p class="section__intro">Most of my work sits where hardware meets data: firmware that reads sensors, and code that turns what they record into something people can use.</p>
+      <p class="section__intro">Most of my work so far has been with data: collecting it, cleaning it, and making it useful.</p>
 
       <h3 class="subhead">Experience</h3>
       <ol class="entries">
@@ -153,15 +152,7 @@ void loop() {
           <div>
             <h4>Junior Software Engineer Intern, TechMatrix</h4>
             <p class="entry__where">Kathmandu, Nepal</p>
-            <p>Worked on backend APIs in Python and Flask as part of a small team.</p>
-          </div>
-        </li>
-        <li class="entry" id="exp-sugam" style="--c: var(--c-brown)">
-          <div class="entry__when">Dec 2021 to Mar 2022</div>
-          <div>
-            <h4>Embedded Systems Developer Intern, Sugam Engineering</h4>
-            <p class="entry__where">Kathmandu, Nepal</p>
-            <p>Helped with C firmware for a microcontroller-based sensor project.</p>
+            <p>Our team built software projects, and I worked on the IoT side, writing parts of the backend in Python and Flask.</p>
           </div>
         </li>
         <li class="entry" id="exp-usm" style="--c: var(--c-orange)">
@@ -195,10 +186,11 @@ void loop() {
       <p class="section__intro">I want to know how a small drone can decide, on its own hardware and without a ground station, that it is looking at a wildfire.</p>
 
       <article class="feature" style="--c: var(--c-yellow)">
-        <p class="feature__status">In progress since January 2026, University of Southern Mississippi</p>
-        <h3>WildfireWatch: onboard AI for UAV wildfire detection</h3>
-        <p>I'm surveying the literature on onboard AI for UAVs, working through more than 35 papers on embodied navigation, multi-agent coordination, and edge inference. The findings support a publication on autonomous wildfire detection from AI-equipped drones. Alongside the survey, I'm testing lightweight ways to deploy models on resource-constrained onboard hardware, under faculty supervision.</p>
-        <p class="entry__tech">Python, OpenCV, TensorFlow Lite, C</p>
+        <p class="feature__status">In progress since January 2026, University of Southern Mississippi, with a teammate</p>
+        <h3>Spotting wildfire smoke on small edge hardware</h3>
+        <p>A two-stage system: a tiny image classifier screens every camera frame, and only the frames it isn't sure about go to a small vision-language model that says what it sees and how severe it looks. The goal is to run all of it on a small edge computer, with no ground station.</p>
+        <p>I put the paper together, found and reviewed the reference work, and helped train the models. Now I'm helping debug them. The paper is in progress.</p>
+        <p class="entry__tech">Python, YOLO, vision-language models, fine-tuning</p>
       </article>
     </section>
 
@@ -214,14 +206,14 @@ void loop() {
         </article>
         <article>
           <h3>Music making</h3>
-          <p>I'm really into writing and creating my own music.</p>
+          <p>I make beats in FL Studio. Something is coming out very soon.</p>
         </article>
       </div>
 
       <figure class="hikes" data-hikes style="--c: var(--c-green)">
         <figcaption class="hikes__head">
           <h3>Hiking</h3>
-          <p>I grew up hiking the hills on the rim of the Kathmandu valley. Pick a peak to see how far it is from the city.</p>
+          <p>I grew up hiking the hills on the rim of the Kathmandu valley, and I love trekking in the Himalayas too. Pick a peak to see how far it is from the city.</p>
         </figcaption>
         <div class="hikes__body">
           <div class="hikes__map">

@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "description": "Only the Netlify function in netlify/functions needs this. The site itself has no build step.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0"
+  }
+}

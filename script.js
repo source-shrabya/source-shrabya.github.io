@@ -83,15 +83,43 @@ if (term) {
       log.append(row);
     });
     log.scrollTop = log.scrollHeight;
+    return log.lastElementChild;
   };
   const link = (name) => ({ href: LINKS[name], label: LINKS[name].replace(/^mailto:|^https:\/\/(www\.)?/, '') });
+
+  // Questions go to a small Netlify function that asks Claude, with the text of this page as its only source.
+  // The github.io copy of the site has no functions, so it calls the one on the main address.
+  const ASK_URL = location.hostname.endsWith('github.io') ? 'https://shrabya.com.np/api/ask' : '/api/ask';
+  const chat = [];
+  let asking = false;
+  const ask = async (question) => {
+    if (!question) return print({ text: 'usage: ask <a question about Shrabya>', cls: 'err' });
+    if (asking) return print({ text: 'Still answering the last one.', cls: 'dim' });
+    asking = true;
+    const waiting = print({ text: 'thinking...', cls: 'dim' });
+    let out;
+    try {
+      const r = await fetch(ASK_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question, history: chat.slice(-6) }) });
+      const data = await r.json().catch(() => null);
+      if (r.ok && data?.answer) {
+        chat.push({ role: 'user', content: question }, { role: 'assistant', content: data.answer });
+        out = data.answer;
+      } else out = { text: data?.error ?? (r.status === 429 ? 'Too many questions. Try again in a minute.' : 'I can\'t answer questions from here. Type help for the commands.'), cls: 'err' };
+    } catch (e) {
+      out = { text: 'I can\'t reach the server right now. Type help for the commands.', cls: 'err' };
+    }
+    waiting.remove();
+    print(out, '');
+    asking = false;
+  };
 
   const COMMANDS = {
     help: { about: 'list commands', run: () => {
       print('');
       Object.entries(COMMANDS).forEach(([name, c]) => c.about && print([{ text: name.padEnd(14), cls: 'hl' }, c.about]));
-      print('', { text: 'Tab completes, ↑ and ↓ go through history, Esc closes.', cls: 'dim' }, '');
+      print('', { text: 'Tab completes, ↑ and ↓ go through history, Esc closes.', cls: 'dim' }, { text: 'A full question works without typing ask first.', cls: 'dim' }, '');
     } },
+    ask: { about: 'ask the AI a question about me', run: (args, rest) => ask(rest) },
     whoami: { about: 'who this is', run: () => print(clean(document.querySelector('h1')), clean(document.querySelector('.lede'))) },
     ls: { about: 'list what is here', run: () => print('experience/  research/  personal/  contact/  resume.pdf') },
     experience: { about: 'work and school', run: () => {
@@ -122,6 +150,7 @@ if (term) {
       term.close();
       location.hash = hash;
     } },
+    play: { about: 'explore this site as a circuit board', run: () => { location.href = 'play.html'; } },
     theme: { about: 'light | dark', args: ['light', 'dark'], run: ([mode]) => {
       if (mode !== 'light' && mode !== 'dark') return print({ text: 'usage: theme light | dark', cls: 'err' });
       setBrightness(mode === 'dark' ? 100 : 0, true);
@@ -150,8 +179,9 @@ if (term) {
     if (!name) return;
     history.push(line);
     const cmd = COMMANDS[name.toLowerCase()];
-    if (cmd) cmd.run(args.map((a) => a.toLowerCase()));
-    else print({ text: `command not found: ${name}. Type help.`, cls: 'err' });
+    if (cmd) cmd.run(args.map((a) => a.toLowerCase()), line.trim().slice(name.length).trim());
+    else if (args.length > 1 || line.trim().endsWith('?')) ask(line.trim());   // reads like a question, so treat it as one
+    else print({ text: `command not found: ${name}. Type help, or ask a question.`, cls: 'err' });
   };
 
   term.querySelector('.term__form').addEventListener('submit', (e) => {
@@ -179,7 +209,7 @@ if (term) {
   const openTerm = () => {
     if (term.open) return;
     term.showModal();
-    if (!log.childElementCount) print({ text: 'SB16-CE shell. Type help to see the commands.', cls: 'dim' }, '');
+    if (!log.childElementCount) print({ text: 'SB16-CE shell. Type help to see the commands, or ask a question about Shrabya.', cls: 'dim' }, '');
     input.focus();
   };
   document.addEventListener('keydown', (e) => {

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>Shrabya Bhattarai, as a circuit board</title>
+  <meta name="description" content="Shrabya Bhattarai's site as a circuit board. Drive a spark along the traces and power up each part." />
+  <link rel="canonical" href="https://shrabya.com.np/play.html" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; overflow: hidden; overscroll-behavior: none; }
+    body { background: #070b12; color: #e5eaf2; font: 1rem/1.5 'Archivo', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    canvas { position: fixed; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+    p, h1 { margin: 0; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid #f5a524; outline-offset: 2px; border-radius: 3px; }
+
+    .hud {
+      position: fixed; top: 0; left: 0; right: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1.5rem;
+      padding: max(.7rem, env(safe-area-inset-top)) 1rem .7rem; pointer-events: none;
+      font: 500 .8rem/1.4 'IBM Plex Mono', ui-monospace, monospace; color: #b9c4d6;
+    }
+    .hud > * { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.1rem; pointer-events: auto; }
+    .hud__stats span { padding: .25rem .6rem; border-radius: 4px; background: rgb(7 11 18 / .72); }
+    .hud b { color: #fff; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .hud b.is-full { color: #62cf80; }
+    .hud button, .hud a {
+      padding: .25rem .6rem; border: 1px solid #3a4558; border-radius: 4px; background: rgb(7 11 18 / .72);
+      color: inherit; font: inherit; text-decoration: none; cursor: pointer;
+    }
+    .hud button:hover, .hud a:hover { border-color: #b9c4d6; color: #fff; }
+
+    .hint {
+      position: fixed; left: 50%; top: 4.5rem; transform: translateX(-50%); width: max-content; max-width: calc(100% - 2rem);
+      padding: .5rem .9rem; border-radius: 6px; background: rgb(7 11 18 / .8); text-align: center; pointer-events: none;
+      transition: opacity .5s;
+    }
+    .hint.is-gone { opacity: 0; }
+    .hint kbd { padding: .05rem .4rem; border: 1px solid #5b667a; border-radius: 4px; font: 500 .85em 'IBM Plex Mono', monospace; }
+
+    /* The section a part stands for, shown while the spark is on it */
+    .card {
+      position: fixed; left: 50%; bottom: max(1rem, env(safe-area-inset-bottom)); width: min(38rem, calc(100% - 2rem));
+      padding: 1rem 1.2rem 1.1rem; border: 1px solid #3a4558; border-left: 4px solid #f5a524; border-radius: 8px;
+      background: rgb(13 19 31 / .94); box-shadow: 0 18px 40px -18px #000;
+      transform: translate(-50%, 1rem); opacity: 0; visibility: hidden; transition: opacity .2s, transform .2s, visibility .2s;
+    }
+    .card.is-shown { transform: translate(-50%, 0); opacity: 1; visibility: visible; }
+    .card__ref { font: 500 .72rem/1 'IBM Plex Mono', monospace; letter-spacing: .08em; color: #f5a524; }
+    .card h1 { margin-top: .35rem; font-size: 1.2rem; font-weight: 750; line-height: 1.2; }
+    .card__meta { margin-top: .2rem; font: .8rem/1.4 'IBM Plex Mono', monospace; color: #98a4b8; }
+    .card__body { margin-top: .55rem; font-size: .95rem; color: #cfd6e2; }
+    .card__links { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; margin-top: .7rem; font-size: .9rem; font-weight: 600; }
+    .card__links a { text-decoration-color: #5b667a; text-decoration-thickness: 2px; text-underline-offset: .25em; }
+    .card__links a:hover { text-decoration-color: currentColor; }
+    @media (max-width: 640px) { .card__body { font-size: .88rem; } .hud { font-size: .72rem; } }
+
+  </style>
+</head>
+<body>
+  <canvas aria-label="A circuit board. Each part on it is a section of Shrabya Bhattarai's site."></canvas>
+
+  <div class="hud">
+    <p class="hud__stats">
+      <span>Parts <b data-parts>0/9</b></span>
+      <span>Charge <b data-dots>0</b></span>
+      <span>Bugs <b data-bugs>0/10</b></span>
+    </p>
+    <p>
+      <button type="button" data-mute>Sound on</button>
+      <button type="button" data-reset>Start over</button>
+      <a href="index.html">Exit to the site</a>
+    </p>
+  </div>
+
+  <p class="hint"><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> or hold the mouse down to drive. On a phone, hold a finger where you want to go.</p>
+
+  <article class="card" aria-live="polite">
+    <p class="card__ref"></p>
+    <h1></h1>
+    <p class="card__meta"></p>
+    <p class="card__body"></p>
+    <p class="card__links"></p>
+  </article>
+
+  <noscript><p style="position:fixed;inset:0;display:grid;place-content:center;text-align:center;padding:2rem">This page is a game and needs JavaScript. <a href="index.html">The normal site is here.</a></p></noscript>
+  <script src="play.js"></script>
+</body>
+</html>

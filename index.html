@@ -184,23 +184,18 @@ void loop() {
     <!-- ============ Research ============ -->
     <section id="research" class="section">
       <h2><span class="refdes" aria-hidden="true">U2</span>Research</h2>
-      <p class="section__intro">I want to know how a small drone can decide, on its own hardware and without a ground station, that it is looking at a wildfire.</p>
-
       <article class="feature" style="--c: var(--c-yellow)">
-        <p class="feature__status">In progress since January 2026, University of Southern Mississippi, with a teammate</p>
+        <p class="feature__status">Since January 2026, USM, with a teammate</p>
         <h3>Spotting wildfire smoke on small edge hardware</h3>
-        <p>A two-stage system: a tiny image classifier screens every camera frame, and only the frames it isn't sure about go to a small vision-language model that says what it sees and how severe it looks. The goal is to run all of it on a small edge computer, with no ground station.</p>
-        <p>I put the paper together, found and reviewed the reference work, and helped train the models. Now I'm helping debug them. The paper is in progress.</p>
-        <p class="entry__tech">Python, YOLO, vision-language models, fine-tuning</p>
+        <p>A small classifier checks every drone camera frame and passes the unsure ones to a vision-language model, all on an edge computer. I put the paper together and helped train the models.</p>
+        <p class="entry__tech">Python, YOLO, vision-language models</p>
       </article>
 
       <article class="feature" style="--c: var(--c-yellow)">
-        <p class="feature__status">Personal project, September to October 2026</p>
+        <p class="feature__status">Personal project, fall 2026</p>
         <h3>Can public stats spot a transfer flop?</h3>
-        <p>I matched 4,782 paid transfers into Europe's top five football leagues, from 2015 to 2024, against player stats from eight public sources. Then I tested whether a player's stats predict how much he plays at his new club better than the price does.</p>
-        <p>They don't. On transfers the models had never seen, stats scored 0.26 and the price 0.27, and the two mostly carry the same information. Stats do predict how a player plays after the move, at about 0.6 against 0.1 to 0.3 for price.</p>
-        <p><a href="https://github.com/source-shrabya/player-value" target="_blank" rel="noopener">Code and full write-up on GitHub</a></p>
-        <p class="entry__tech">Python, pandas, LightGBM, scikit-learn</p>
+        <p>On 4,782 football transfers, a player's stats predicted playing time no better than the price did (0.26 against 0.27). <a href="https://github.com/source-shrabya/player-value" target="_blank" rel="noopener">Code on GitHub</a></p>
+        <p class="entry__tech">Python, pandas, LightGBM</p>
       </article>
     </section>
 
